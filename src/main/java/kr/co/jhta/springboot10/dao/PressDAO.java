@@ -13,5 +13,5 @@ public interface PressDAO {
 
 	List<PressDTO> getAll();
 	
-	List<PressDTO> selectOne(String from_date,String name,String party);
+	List<PressDTO> selectOne(String from_date,String to_date,String name,String party);
 }

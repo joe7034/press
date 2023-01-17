@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Entity
 public class speakerDTO {
 	private int id;
+	private String date;
 	private String name;
 	private String party;
+	private String title;
 }

@@ -19,7 +19,7 @@ public class PressService {
 		return dao.getAll();
 	}
 	
-	public List<PressDTO> selectOne(String from_date,String name,String party) {
-		return dao.selectOne(from_date,name, party);
+	public List<PressDTO> selectOne(String from_date,String to_date,String name,String party) {
+		return dao.selectOne(from_date, to_date, name, party);
 	}
 }

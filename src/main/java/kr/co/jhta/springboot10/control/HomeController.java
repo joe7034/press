@@ -28,6 +28,7 @@ public class HomeController {
 
 	@PostMapping("/result")
 	public String result(@RequestParam(value = "from_date",required = false)String from_date,
+			@RequestParam(value = "to_date",required = false)String to_date,
 			@RequestParam(value = "name",required = false)String name,
 			@RequestParam(value = "party",required = false)String party, Model model) {
 
@@ -41,7 +42,7 @@ public class HomeController {
 		 * List<PressDTO> list = service.selectAll(); model.addAttribute("list", list);
 		 */
 		
-		List<PressDTO> list = service.selectOne(from_date, name, party);
+		List<PressDTO> list = service.selectOne(from_date, to_date, name, party);
 		model.addAttribute("list", list);
 
 		return "result";

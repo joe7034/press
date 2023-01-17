@@ -22,14 +22,18 @@
 			
 			<tr>
 				<th>id</th>
+				<th>date</th>
 				<th>name</th>
 				<th>party</th>
+				<th>title</th>
 			</tr>
 			<c:forEach var="list" items="${list }">
 				<tr>
 					<td>${list.id }</td>
+					<td>${list.date }</td>
 					<td>${list.name }</td>
 					<td>${list.party }</td>
+					<td>${list.title }</td>
 				</tr>
 			</c:forEach>
 

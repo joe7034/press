@@ -8,15 +8,46 @@
 		select * from press_info
 	</select>
 	<select id="selectOne" parameterType="String" resultType="speakerDTO">
-		select * from speaker_list
-		where party like CONCAT('%',#{party},'%')
+		SELECT S.id,P.date,S.name,S.party,P.title
+		FROM speaker_list S
+			INNER JOIN press_info P
+			ON S.press_id=P.id
+			
 		<choose>
-			<when test ="name !=''">
-				and name like #{name}
+			
+			<when test="from_date !='' and to_date =='' and name =='' and party ==''">
+				WHERE P.date>=#{from_date}
 			</when>
-			<when test ="name !='' and from_date !=''">
-
+			<when test="from_date !='' and to_date !='' and name =='' and party ==''">
+				WHERE P.date>=#{from_date} AND P.date &lt;= #{to_date}
 			</when>
+			<when test="to_date !='' and name !='' and party ==''">
+				WHERE P.date>=#{from_date} AND P.date &lt;= #{to_date} AND S.name like #{name}
+			</when>
+			<when test="to_date !='' and name !='' and party !=''">
+				WHERE P.date>=#{from_date} AND P.date &lt;= #{to_date} AND S.name like #{name} and S.party like CONCAT('%',#{party},'%')
+			</when>
+			<when test="from_date =='' and to_date !='' and name =='' and party ==''">
+				WHERE P.date &lt;= #{to_date}
+			</when>
+			<when test="from_date =='' and to_date !='' and name !='' and party ==''">
+				WHERE P.date &lt;= #{to_date} AND S.name like #{name}
+			</when>
+			<when test="from_date =='' and to_date !='' and name !='' and party !=''">
+				WHERE P.date &lt;= #{to_date} AND S.name like #{name} and S.party like CONCAT('%',#{party},'%')
+			</when>
+			<when test="from_date =='' and to_date =='' and name !='' and party ==''">
+				WHERE S.name like #{name}
+			</when>
+			<when test="from_date =='' and to_date =='' and name !='' and party !=''">
+				WHERE S.name like #{name} and S.party like CONCAT('%',#{party},'%')
+			</when>
+			<when test="from_date =='' and to_date =='' and name =='' and party !=''">
+				WHERE S.party like CONCAT('%',#{party},'%')
+			</when>
+			
+			
+			
 			<otherwise>
 				
 			</otherwise>
