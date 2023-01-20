@@ -11,9 +11,22 @@
 		SELECT S.id,P.date,S.name,S.party,P.title
 		FROM speaker_list S
 			INNER JOIN press_info P
-			ON S.press_id=P.id
-			
-		<choose>
+			ON S.press_id=P.id where 1=1 
+		
+			<if test="from_date !=''">
+				and P.date>=#{from_date}
+			</if>
+			<if test="to_date !=''">
+				AND P.date &lt;= #{to_date}
+			</if>
+			<if test="name !=''">
+				and S.name like #{name}
+			</if>
+			<if test="party !=''">
+				and S.party like CONCAT('%',#{party},'%')
+			</if>	
+			order by P.date asc limit 100
+		<!-- <choose>
 			
 			<when test="from_date !='' and to_date =='' and name =='' and party ==''">
 				WHERE P.date>=#{from_date}
@@ -51,7 +64,7 @@
 			<otherwise>
 				
 			</otherwise>
-		</choose>
+		</choose> -->
 	</select>
 
 
